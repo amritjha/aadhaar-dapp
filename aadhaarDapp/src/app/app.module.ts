@@ -1,0 +1,41 @@
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { NavigationComponent } from './navigation/navigation.component';
+import { HomeComponent } from './home/home.component';
+import { PermissionsComponent } from './permissions/permissions.component';
+import { AccessComponent } from './access/access.component';
+import { RegisterComponent } from './register/register.component';
+import { UpdateComponent } from './update/update.component';
+import { AdminComponent } from './admin/admin.component';
+
+const appRoutes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'access-records', component: AccessComponent },
+  { path: 'manage-permissions', component: PermissionsComponent }
+  //{ path: '**', component: PageNotFoundComponent }
+];
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    NavigationComponent,
+    HomeComponent,
+    PermissionsComponent,
+    AccessComponent,
+    RegisterComponent,
+    UpdateComponent,
+    AdminComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    RouterModule.forRoot(appRoutes)
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }

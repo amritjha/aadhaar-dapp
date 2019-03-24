@@ -1,0 +1,8 @@
+ <div class="ui vertical fluid tabular menu">
+  <a class="item" (click)="onTabSelect($event)" idx="1" [ngClass]="{active: tab_index === 1}" routerLink="/">Home</a>
+  <a class="item" (click)="onTabSelect($event)" idx="2" [ngClass]="{active: tab_index === 2}" routerLink="/access-records">Access Records</a>
+  <a class="item" (click)="onTabSelect($event)" idx="3" [ngClass]="{active: tab_index === 3}">Manage Permissions</a>
+  <a class="item" (click)="onTabSelect($event)" idx="4" [ngClass]="{active: tab_index === 4}">Register Applicant</a>
+  <a class="item" (click)="onTabSelect($event)" idx="5" [ngClass]="{active: tab_index === 5}">Update Records</a>
+  <a class="item" (click)="onTabSelect($event)" idx="6" [ngClass]="{active: tab_index === 6}">Regulate Nodes</a>
+</div>

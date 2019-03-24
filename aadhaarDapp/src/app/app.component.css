@@ -1,0 +1,9 @@
+.ui.grid {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.four.wide.column {
+    height: 100%;
+}
