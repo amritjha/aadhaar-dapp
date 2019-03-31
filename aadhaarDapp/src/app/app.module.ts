@@ -6,8 +6,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { HomeComponent } from './home/home.component';
-import { PermissionsComponent } from './permissions/permissions.component';
 import { AccessComponent } from './access/access.component';
+import { PermissionsComponent } from './permissions/permissions.component';
 import { RegisterComponent } from './register/register.component';
 import { UpdateComponent } from './update/update.component';
 import { AdminComponent } from './admin/admin.component';
@@ -15,7 +15,10 @@ import { AdminComponent } from './admin/admin.component';
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'access-records', component: AccessComponent },
-  { path: 'manage-permissions', component: PermissionsComponent }
+  { path: 'manage-permissions', component: PermissionsComponent },
+  { path: 'register-applicant', component: RegisterComponent },
+  { path: 'update-records', component: UpdateComponent },
+  { path: 'regulate-nodes', component: AdminComponent }
   //{ path: '**', component: PageNotFoundComponent }
 ];
 

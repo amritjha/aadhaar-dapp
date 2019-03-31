@@ -57,7 +57,7 @@ contract AadhaarContract {
         
         require(designated_agents[msg.sender] == true);
         
-        aadhaar_data[++aadhaar_no_init] = Aadhaar({
+        aadhaar_data[aadhaar_no_init] = Aadhaar({
             name: _nm,
             date_of_birth: _dob,
             gender: _gn,
@@ -71,17 +71,19 @@ contract AadhaarContract {
         });
         
         addr_id_linkage[_addr] = aadhaar_no_init;
-    
+        ++aadhaar_no_init;
     }
     
     function grantAccess(address _rcv, uint256 _dr) public {
         
-        permissions[++permission_no_init] = Permission({
+        permissions[permission_no_init] = Permission({
             granted_by: msg.sender,
             granted_to: _rcv,
             duration: _dr,
             status: 1
         });
+        
+        ++permission_no_init;
 
     }
     
@@ -109,17 +111,21 @@ contract AadhaarContract {
         
     }
     
-    function accessOthersRecords(uint256 _permid) view public returns(string, int256, uint8, string, uint256) {
+    function accessOthersRecords(uint256 _permid) view public returns(string, int256, uint8, string, uint256, string, uint256) {
         
         require(msg.sender == permissions[_permid].granted_to && permissions[_permid].status != 0);
         require(now <= permissions[_permid].duration);
+        uint256 aadhaar = addr_id_linkage[permissions[_permid].granted_by];
         
         return (
-            aadhaar_data[addr_id_linkage[permissions[_permid].granted_by]].name, 
-            aadhaar_data[addr_id_linkage[permissions[_permid].granted_by]].date_of_birth, 
-            aadhaar_data[addr_id_linkage[permissions[_permid].granted_by]].gender, 
-            aadhaar_data[addr_id_linkage[permissions[_permid].granted_by]].residential_address, 
-            aadhaar_data[addr_id_linkage[permissions[_permid].granted_by]].face_encoded
+        
+            aadhaar_data[aadhaar].name, 
+            aadhaar_data[aadhaar].date_of_birth, 
+            aadhaar_data[aadhaar].gender, 
+            aadhaar_data[aadhaar].residential_address, 
+            aadhaar_data[aadhaar].phone_no, 
+            aadhaar_data[aadhaar].email_id,
+            aadhaar_data[aadhaar].face_encoded
         );
         
     }
