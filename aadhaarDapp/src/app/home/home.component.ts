@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ContractsService} from '../services/contracts.service';
+import { CssSelector } from '@angular/compiler';
 
 @Component({
   selector: 'app-home',
@@ -8,27 +9,21 @@ import {ContractsService} from '../services/contracts.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(public cs : ContractsService) {
-    this.cs.getOwnRecords().then(res => {
-      console.log(res);
-    });    
+  constructor(public cs : ContractsService) {  }
+
+  ret_data: any = "No data available";
+
+  ngOnInit() { }
+
+  public async callGetData() {
+    let ret_val = await this.cs.getOwnRecords();
+    this.ret_data = ret_val[0] + " " + ret_val[1] + " " + ret_val[2];
   }
 
-  ngOnInit() {
-    //this.callContract().then(res => console.log(res));
-    //this.cs.callContract();
+  public async callSetData() {
+    let ret_val = await this.cs.setOwnRecords("Aakash", 10011996, 1);
+    console.log(ret_val);
   }
 
-  // callContract() {
-  //   this.cs.getOwnRecords().then((res) => {
-  //     console.log(res);
-  //   });
-
-  // }
-
-  // public async callContract() {
-  //   let ret_val = await this.cs.getOwnRecords();
-  //   console.log(ret_val);
-  // }
 
 }

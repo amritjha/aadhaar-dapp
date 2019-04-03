@@ -11,6 +11,7 @@ import { PermissionsComponent } from './permissions/permissions.component';
 import { RegisterComponent } from './register/register.component';
 import { UpdateComponent } from './update/update.component';
 import { AdminComponent } from './admin/admin.component';
+import { ContractsService } from './services/contracts.service';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -38,7 +39,9 @@ const appRoutes: Routes = [
     AppRoutingModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [
+    ContractsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
