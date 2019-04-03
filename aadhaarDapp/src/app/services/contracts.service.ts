@@ -20,7 +20,7 @@ export class ContractsService {
   //public aadhaarContract: any;
   //public CONTRACT_ADDRESS: string = "0xbb567c98f7dda9f9bdbdaa2ad361df021bf8b02f";
   public dummyContract: any;
-  public CONTRACT_ADDRESS: string = "0x42c6c715ed12a765cb03401aade6cdc6f22eb5c5";
+  public CONTRACT_ADDRESS: string = "0x885e69d8a2b2452701789513ed235d5586b5f0f7";
   
   public ret_val: any;
 
@@ -64,16 +64,9 @@ export class ContractsService {
     
   }
 
-  public async callContract() {
-    let res = await this.getOwnRecords();
-    this.ret_val = res;
-    //console.log(res);
-    return res;
-  };
-
-  public async getOwnRecords() {
+  public async designateNode(_addr) {
     return new Promise((resolve, reject) => {
-      this.dummyContract.get.call({from: this.web3.eth.defaultAccount}, (err, res) => {
+      this.dummyContract.designateNode(_addr, (err, res) => {
         if(err) 
           reject(err);
         else {
@@ -83,10 +76,9 @@ export class ContractsService {
     });
   }
 
-  public async setOwnRecords(_nm:string, _dob:number, _gn:number) {
-
-    return await new Promise((resolve, reject) => {
-      this.dummyContract.set(_nm, _dob, _gn, (err, res) => {
+  public async deposeNode(_addr) {
+    return new Promise((resolve, reject) => {
+      this.dummyContract.deposeNode(_addr, (err, res) => {
         if(err) 
           reject(err);
         else {
@@ -94,9 +86,31 @@ export class ContractsService {
         }
       });
     });
-
   }
 
+  public async addRecords(_addr, _nm, _dob, _gn, _resaddr, _ph, _em, _iris, _fnprints, _face) {
+    return new Promise((resolve, reject) => {
+      this.dummyContract.addRecords(_addr, _nm, _dob, _gn, _resaddr, _ph, _em, _iris, _fnprints, _face, (err, res) => {
+        if(err) 
+          reject(err);
+        else {
+          resolve(res);
+        }
+      });
+    });
+  }
+
+  public async accessOwnRecords() {
+    return new Promise((resolve, reject) => {
+      this.dummyContract.accessOwnRecords.call((err, res) => {
+        if(err) 
+          reject(err);
+        else {
+          resolve(res);
+        }
+      });
+    });
+  }
   
 
 }
