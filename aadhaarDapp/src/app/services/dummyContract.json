@@ -55,9 +55,87 @@
 			{
 				"name": "_addr",
 				"type": "address"
+			},
+			{
+				"name": "_iris",
+				"type": "uint256"
+			},
+			{
+				"name": "_fnprints",
+				"type": "uint256"
+			},
+			{
+				"name": "_face",
+				"type": "uint256"
+			}
+		],
+		"name": "updateBiometricDetails",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_addr",
+				"type": "address"
 			}
 		],
 		"name": "designateNode",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_addr",
+				"type": "address"
+			},
+			{
+				"name": "_resaddr",
+				"type": "string"
+			},
+			{
+				"name": "_em",
+				"type": "string"
+			},
+			{
+				"name": "_ph",
+				"type": "uint256"
+			}
+		],
+		"name": "updateContactDetails",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_addr",
+				"type": "address"
+			},
+			{
+				"name": "_nm",
+				"type": "string"
+			},
+			{
+				"name": "_dob",
+				"type": "int256"
+			},
+			{
+				"name": "_gn",
+				"type": "uint8"
+			}
+		],
+		"name": "updatePersonalDetails",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",

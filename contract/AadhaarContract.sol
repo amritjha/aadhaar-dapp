@@ -1,7 +1,7 @@
-pragma solidity ^0.4.24;
+pragma solidity ^0.5.0;
 
-contract AadhaarContract {
-    
+contract AadhaarContract { 
+
     struct Aadhaar {
         
         string name;
@@ -25,7 +25,7 @@ contract AadhaarContract {
         uint8 status;
         
     }
-    
+        
     mapping(address => uint256) addr_id_linkage;
     mapping(uint256 => Aadhaar) aadhaar_data;
     mapping(uint256 => Permission) permissions;
@@ -53,7 +53,7 @@ contract AadhaarContract {
     
     }
     
-    function addRecords(address _addr, string _nm, int256 _dob, uint8 _gn, string _resaddr, uint256 _ph, string _em, uint256 _iris, uint256 _fnprints, uint256 _face) public {
+    function addRecords(address _addr, string memory _nm, int256 _dob, uint8 _gn, string memory _resaddr, uint256 _ph, string memory _em, uint256 _iris, uint256 _fnprints, uint256 _face) public {
         
         require(designated_agents[msg.sender] == true);
         
@@ -74,27 +74,7 @@ contract AadhaarContract {
         ++aadhaar_no_init;
     }
     
-    function grantAccess(address _rcv, uint256 _dr) public {
-        
-        permissions[permission_no_init] = Permission({
-            granted_by: msg.sender,
-            granted_to: _rcv,
-            duration: _dr,
-            status: 1
-        });
-        
-        ++permission_no_init;
-
-    }
-    
-    function revokeAccess(uint256 _permid) public {
-        
-        require(msg.sender == permissions[_permid].granted_by && now <= permissions[_permid].duration);
-        permissions[_permid].status = 0;
-        
-    }
-    
-    function accessOwnRecords() public view returns (string, int256, uint8, string, uint256, string, uint256, uint256, uint256, uint256) {
+    function accessOwnRecords() public view returns (string memory, int256, uint8, string memory, uint256, string memory, uint256, uint256, uint256, uint256) {
         
         return (
             aadhaar_data[addr_id_linkage[msg.sender]].name, 
@@ -111,7 +91,54 @@ contract AadhaarContract {
         
     }
     
-    function accessOthersRecords(uint256 _permid) view public returns(string, int256, uint8, string, uint256, string, uint256) {
+    function updateBiometricDetails(address _addr, uint256 _iris, uint256 _fnprints, uint256 _face) public {
+        
+        require(designated_agents[msg.sender] == true);
+        aadhaar_data[addr_id_linkage[_addr]].iris_encoded = _iris;
+        aadhaar_data[addr_id_linkage[_addr]].fingerprints_encoded = _fnprints;
+        aadhaar_data[addr_id_linkage[_addr]].face_encoded = _face;
+        
+    }
+    
+    function updateContactDetails(address _addr, string memory _resaddr, string memory _em, uint256 _ph) public {
+        
+        require(designated_agents[msg.sender] == true);
+        aadhaar_data[addr_id_linkage[_addr]].residential_address = _resaddr;
+        aadhaar_data[addr_id_linkage[_addr]].email_id = _em;
+        aadhaar_data[addr_id_linkage[_addr]].phone_no = _ph;
+        
+    }
+    
+    function updatePersonalDetails(address _addr, string memory _nm, int256 _dob, uint8 _gn) public {
+        
+        require(designated_agents[msg.sender] == true);
+        aadhaar_data[addr_id_linkage[_addr]].name = _nm;
+        aadhaar_data[addr_id_linkage[_addr]].date_of_birth = _dob;
+        aadhaar_data[addr_id_linkage[_addr]].gender = _gn;
+        
+    }
+    
+    function grantAccess(address _rcv, uint256 _dr) public {
+        
+        permissions[permission_no_init] = Permission({
+            granted_by: msg.sender,
+            granted_to: _rcv,
+            duration: now + _dr,
+            status: 1
+        });
+        
+        ++permission_no_init;
+
+    }
+    
+    function revokeAccess(uint256 _permid) public {
+        
+        require(msg.sender == permissions[_permid].granted_by && now <= permissions[_permid].duration);
+        permissions[_permid].status = 0;
+        
+    }
+    
+    function accessOthersRecords(uint256 _permid) view public returns(string memory, int256, uint8, string memory, uint256, string memory, uint256) {
         
         require(msg.sender == permissions[_permid].granted_to && permissions[_permid].status != 0);
         require(now <= permissions[_permid].duration);
@@ -127,33 +154,6 @@ contract AadhaarContract {
             aadhaar_data[aadhaar].email_id,
             aadhaar_data[aadhaar].face_encoded
         );
-        
-    }
-    
-    function updateBiometricDetails(address _addr, uint256 _iris, uint256 _fnprints, uint256 _face) public {
-        
-        require(designated_agents[msg.sender] == true);
-        aadhaar_data[addr_id_linkage[_addr]].iris_encoded = _iris;
-        aadhaar_data[addr_id_linkage[_addr]].fingerprints_encoded = _fnprints;
-        aadhaar_data[addr_id_linkage[_addr]].face_encoded = _face;
-        
-    }
-    
-    function updateContactDetails(address _addr, string _resaddr, string _em, uint256 _ph) public {
-        
-        require(designated_agents[msg.sender] == true);
-        aadhaar_data[addr_id_linkage[_addr]].residential_address = _resaddr;
-        aadhaar_data[addr_id_linkage[_addr]].email_id = _em;
-        aadhaar_data[addr_id_linkage[_addr]].phone_no = _ph;
-        
-    }
-    
-    function updatePersonalDetails(address _addr, string _nm, int256 _dob, uint8 _gn) public {
-        
-        require(designated_agents[msg.sender] == true);
-        aadhaar_data[addr_id_linkage[_addr]].name = _nm;
-        aadhaar_data[addr_id_linkage[_addr]].date_of_birth = _dob;
-        aadhaar_data[addr_id_linkage[_addr]].gender = _gn;
         
     }
     
