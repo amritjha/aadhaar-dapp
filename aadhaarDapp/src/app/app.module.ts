@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,7 +12,6 @@ import { PermissionsComponent } from './permissions/permissions.component';
 import { RegisterComponent } from './register/register.component';
 import { UpdateComponent } from './update/update.component';
 import { AdminComponent } from './admin/admin.component';
-import { ContractsService } from './services/contracts.service';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -37,11 +37,10 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    FormsModule
   ],
-  providers: [
-    ContractsService
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

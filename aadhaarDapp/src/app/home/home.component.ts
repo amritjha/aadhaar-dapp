@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {ContractsService} from '../services/contracts.service';
-import { CssSelector } from '@angular/compiler';
 
 @Component({
   selector: 'app-home',
@@ -15,17 +14,17 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() { }
 
-  public async designateNode() {
-    let arg:any = "0x99686b4b6b330f550BdD794C7b0A6C4951BBbDa5";
-    let ret_val = await this.cs.designateNode(arg);
-    this.ret_data = ret_val;
-  }
+  // public async designateNode() {
+  //   let arg:any = "0x99686b4b6b330f550BdD794C7b0A6C4951BBbDa5";
+  //   let ret_val = await this.cs.designateNode(arg);
+  //   this.ret_data = ret_val;
+  // }
 
-  public async deposeNode() {
-    let arg:any = "0x9e1Dd51c483fca51Ddc631A588aa67C9f1Ae7EA2";
-    let ret_val = await this.cs.deposeNode(arg);
-    this.ret_data = ret_val;
-  }
+  // public async deposeNode() {
+  //   let arg:any = "0x9e1Dd51c483fca51Ddc631A588aa67C9f1Ae7EA2";
+  //   let ret_val = await this.cs.deposeNode(arg);
+  //   this.ret_data = ret_val;
+  // }
 
   public async addRecords() {
     let ret_val = await this.cs.addRecords("0x9e1Dd51c483fca51Ddc631A588aa67C9f1Ae7EA2", "Brett Lee", 10101990, 1, "Dispur", 7035345255, "brett@ca.au", 1000, 2000, 3000);
@@ -53,17 +52,17 @@ export class HomeComponent implements OnInit {
   }
 
   public async grantAccess() {
-    let ret_val = await this.cs.grantAccess("0x99686b4b6b330f550BdD794C7b0A6C4951BBbDa5", 2000);
+    let ret_val = await this.cs.grantAccess("0x99686b4b6b330f550BdD794C7b0A6C4951BBbDa5", 600);
     this.ret_data = ret_val; 
   }
 
   public async revokeAccess() {
-    let ret_val = await this.cs.revokeAccess(10000012);
+    let ret_val = await this.cs.revokeAccess(10000013);
     this.ret_data = ret_val; 
   }
 
   public async accessOthersRecords() {
-    let ret_val = await this.cs.accessOthersRecords(10000012);
+    let ret_val = await this.cs.accessOthersRecords(10000013);
     this.ret_data = ret_val; 
   }
 

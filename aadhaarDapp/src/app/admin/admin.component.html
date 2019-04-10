@@ -1,3 +1,21 @@
-<p>
-  admin works!
-</p>
+<div>{{ ret_val }}</div>
+<br><br>
+<form class="ui form" (ngSubmit)="designateNode()" #designateNodeForm="ngForm">
+  <div class="field">
+    <label>Node Address</label>
+    <input type="text" name="desgaddr" placeholder="Node Address" ngModel required #desgaddr="ngModel">
+    <span class="flash-message" *ngIf="!desgaddr.valid && desgaddr.touched">Please enter a valid node address.</span>
+  </div>
+  <button class="ui button" type="submit" [disabled]="!designateNodeForm.valid">Designate Node</button>
+</form>
+
+<br><br>
+
+<form class="ui form" (ngSubmit)="deposeNode()" #deposeNodeForm="ngForm">
+  <div class="field">
+    <label>Node Address</label>
+    <input type="text" name="depsaddr" placeholder="Node Address" ngModel required #depsaddr="ngModel">
+    <span class="flash-message" *ngIf="!depsaddr.valid && depsaddr.touched">Please enter a valid node address.</span>
+  </div>
+  <button class="ui button" type="submit" [disabled]="!deposeNodeForm.valid">Depose Node</button>
+</form>
