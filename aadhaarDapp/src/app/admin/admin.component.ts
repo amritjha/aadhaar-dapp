@@ -18,12 +18,12 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() { }
 
-  async designateNode() {
+  public async designateNode() {
     let addr:string = this.designateNodeForm.value.desgaddr;
     this.ret_val = await this.cs.designateNode(addr);
   }
 
-  async deposeNode() {
+  public async deposeNode() {
     let addr:string = this.deposeNodeForm.value.depsaddr;
     this.ret_val = await this.cs.deposeNode(addr);
   }

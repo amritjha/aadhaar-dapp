@@ -1,8 +1,9 @@
  <div class="ui vertical fluid tabular menu">
-  <a class="item" (click)="onTabSelect($event)" idx="1" [ngClass]="{active: tab_index === 1}" routerLink="/">Home</a>
-  <a class="item" (click)="onTabSelect($event)" idx="2" [ngClass]="{active: tab_index === 2}" routerLink="/access-records">Access Records</a>
-  <a class="item" (click)="onTabSelect($event)" idx="3" [ngClass]="{active: tab_index === 3}" routerLink="/manage-permissions">Manage Permissions</a>
-  <a class="item" (click)="onTabSelect($event)" idx="4" [ngClass]="{active: tab_index === 4}" routerLink="/register-applicant">Register Applicant</a>
-  <a class="item" (click)="onTabSelect($event)" idx="5" [ngClass]="{active: tab_index === 5}" routerLink="/update-records">Update Records</a>
-  <a class="item" (click)="onTabSelect($event)" idx="6" [ngClass]="{active: tab_index === 6}" routerLink="/regulate-nodes">Regulate Nodes</a>
+  <a class="item" (click)="onTabSelect($event)" idx="1" routerLinkActive="active" routerLink="/">Home</a>
+  <a class="item" (click)="onTabSelect($event)" idx="2" routerLinkActive="active" routerLink="/access-records">Access Records</a>
+  <a class="item" (click)="onTabSelect($event)" idx="3" routerLinkActive="active" routerLink="/manage-permissions">Manage Permissions</a>
+  <a class="item" (click)="onTabSelect($event)" idx="4" routerLinkActive="active" routerLink="/register-applicant">Register Applicant</a>
+  <a class="item" (click)="onTabSelect($event)" idx="5" routerLinkActive="active" routerLink="/update-records">Update Records</a>
+  <a class="item" (click)="onTabSelect($event)" idx="6" routerLinkActive="active" routerLink="/regulate-nodes">Regulate Nodes</a>
+  <!-- [ngClass]="{active: tab_index === 6}" -->
 </div>
