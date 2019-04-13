@@ -14,7 +14,7 @@ export class RegisterComponent implements OnInit {
 
   @ViewChild('addRecordsForm') addRecordsForm: NgForm;
 
-  ret_val:any = "No data available.";
+  ret_val:any = "";
 
   constructor(public cs : ContractsService) { }
 

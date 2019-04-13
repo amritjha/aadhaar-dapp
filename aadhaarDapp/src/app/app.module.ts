@@ -14,7 +14,8 @@ import { UpdateComponent } from './update/update.component';
 import { AdminComponent } from './admin/admin.component';
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
   { path: 'access-records', component: AccessComponent },
   { path: 'manage-permissions', component: PermissionsComponent },
   { path: 'register-applicant', component: RegisterComponent },
