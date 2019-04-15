@@ -1,3 +1,32 @@
-<p>
-  permissions works!
-</p>
+<div>{{ ret_val }}</div><br>
+
+<form class="ui form" (ngSubmit)="grantAccess()" #grantPermissionForm="ngForm">
+  <div class="fields">
+    <div class="ten wide field">
+        <div class="field">
+          <label>Node Address</label>
+          <input type="text" name="rcvaddr" placeholder="Node Address - Receiver" ngModel required #rcvaddr="ngModel">
+          <span class="flash-message" *ngIf="!rcvaddr.valid && rcvaddr.touched">This is a required field.</span>
+        </div>
+    </div>
+    <div class="six wide field">
+        <div class="field">
+          <label>Duration</label>
+          <input type="number" name="duration" placeholder="Duration (in seconds)" ngModel required #duration="ngModel">
+          <span class="flash-message" *ngIf="!duration.valid && duration.touched">This is a required field.</span>
+        </div>
+    </div>
+  </div>
+  <button class="ui button" type="submit" [disabled]="!grantPermissionForm.valid">Grant Permission</button>
+</form>
+
+<br><br>
+
+<form class="ui form" (ngSubmit)="revokeAccess()" #revokePermissionForm="ngForm">
+  <div class="field">
+    <label>Permission ID</label>
+    <input type="number" name="permid" placeholder="Permission ID" ngModel required #permid="ngModel">
+    <span class="flash-message" *ngIf="!permid.valid && permid.touched">Permission ID is a required field.</span>
+  </div>
+  <button class="ui button" type="submit" [disabled]="!revokePermissionForm.valid">Revoke Permission</button>
+</form>

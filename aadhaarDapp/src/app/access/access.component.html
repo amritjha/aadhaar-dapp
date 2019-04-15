@@ -1,3 +1,10 @@
-<p>
-  access works!
-</p>
+<form class="ui form" (ngSubmit)="accessRecords()" #accessRecordsForm="ngForm">
+  <div class="field">
+    <label>Permission ID</label>
+    <input type="number" name="permid" placeholder="Permission ID" ngModel required #permid="ngModel">
+    <span class="flash-message" *ngIf="!permid.valid && permid.touched">Permission ID is a required field.</span>
+  </div>
+  <button class="ui button" type="submit" [disabled]="!accessRecordsForm.valid">Access Records</button>
+</form>
+<br><br>
+<div class="records" [innerHtml]="records"></div> 

@@ -1,0 +1,62 @@
+<div>{{ ret_val }}</div><br>
+
+<form class="ui form"  (ngSubmit)="updatePersonalDetails()" #updatePersonalForm="ngForm">
+
+  <div class="field">
+    <label>Node Address</label>
+    <input type="text" name="nodeaddr" placeholder="Node Address" ngModel required #nodeaddr="ngModel">
+    <span class="flash-message" *ngIf="!nodeaddr.valid && nodeaddr.touched">Please enter a valid node address.</span>
+  </div>
+
+  <div class="field" ngModelGroup="fullName" #fullName="ngModelGroup">
+    <label>Name</label>
+    <div class="two fields">
+      <div class="field">
+        <input type="text" name="firstName" placeholder="First Name"  ngModel required #fname="ngModel">
+      </div>
+      <div class="field">
+        <input type="text" name="lastName" placeholder="Last Name"  ngModel #lname="ngModel">
+      </div>
+    </div>
+  </div>
+  <span class="flash-message" *ngIf="!fullName.valid && fullName.touched">This field is required.</span>
+
+  <div class="fields">
+
+      <div class="twelve wide field" ngModelGroup="dob" #dob="ngModelGroup">
+        <label>Date of Birth</label>
+        <div class="three fields">
+            <div class="field">
+              <select class="ui fluid search dropdown" name="date"  ngModel required #date="ngModel">
+                <option value="" disabled>Date</option>
+                <option value="" *ngFor="let date of dates; index as i" value="{{ processIndex(i + 1) }}">{{ date }}</option>
+              </select>
+              <span class="flash-message" *ngIf="!date.valid && date.touched">This field is required.</span>
+            </div>
+            <div class="field">
+                <select class="ui fluid search dropdown" name="month"  ngModel required #month="ngModel">
+                  <option value="" disabled>Month</option>
+                  <option value="" *ngFor="let month of months; index as i" value="{{ processIndex(i + 1) }}">{{ month }}</option>
+                </select>
+                <span class="flash-message" *ngIf="!month.valid && month.touched">This field is required.</span>
+              </div>
+              <div class="field">
+                <input type="text" name="year" maxlength="4" placeholder="Year"  ngModel required #year="ngModel">
+                <span class="flash-message" *ngIf="!year.valid && year.touched">Please enter a valid year.</span>
+              </div>
+        </div>
+      </div>
+
+      <div class="four wide field">
+        <label>Gender</label>
+        <select class="ui fluid dropdown" name="gender"  ngModel required #gender="ngModel">
+          <option value="1">Male</option>
+          <option value="2">Female</option>
+          <option value="3">Others</option>
+        </select>
+        <span class="flash-message" *ngIf="!gender.valid && gender.touched">This field is required.</span>
+      </div>
+  </div>
+  <br>
+  <button class="ui button" type="submit" [disabled]="!updatePersonalForm.valid">Submit</button>
+</form>

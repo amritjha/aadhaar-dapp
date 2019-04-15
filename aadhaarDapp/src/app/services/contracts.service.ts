@@ -3,11 +3,8 @@ import { Injectable } from '@angular/core';
 import * as Web3 from 'web3';
 
 declare let require: any;
-
 declare let window: any;
-
 let CONTRACT_ABI = require('./aadhaarContract.json');
-//let CONTRACT_ABI = require('./dummyContract.json');
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +16,6 @@ export class ContractsService {
 
   public aadhaarContract: any;
   public CONTRACT_ADDRESS: string = "0xae05b30dce246717c01b9f0e0bd8fea51e44ff77";
-  //public dummyContract: any;
-  //public CONTRACT_ADDRESS: string = "0xa0e0be80e42f9761dd4f2f5184661a08124e125d";
   
   public ret_val: any;
 
@@ -40,7 +35,6 @@ export class ContractsService {
     }
 
     this.aadhaarContract = this.web3.eth.contract(CONTRACT_ABI).at(this.CONTRACT_ADDRESS);
-    //this.dummyContract = this.web3.eth.contract(CONTRACT_ABI).at(this.CONTRACT_ADDRESS);
 
     this.web3.eth.getAccounts((err, res) => {
 
@@ -63,7 +57,7 @@ export class ContractsService {
 
   public async designateNode(_addr) {
     return new Promise((resolve, reject) => {
-      this.aadhaarContract.designateNode(_addr, (err, res) => {
+      this.aadhaarContract.designateNode(_addr, {from: this.web3.eth.accounts[0]}, (err, res) => {
         if(err) 
           reject(err);
         else {
@@ -75,7 +69,7 @@ export class ContractsService {
 
   public async deposeNode(_addr) {
     return new Promise((resolve, reject) => {
-      this.aadhaarContract.deposeNode(_addr, (err, res) => {
+      this.aadhaarContract.deposeNode(_addr, {from: this.web3.eth.accounts[0]}, (err, res) => {
         if(err) 
           reject(err);
         else {
@@ -87,7 +81,7 @@ export class ContractsService {
 
   public async addRecords(_addr, _nm, _dob, _gn, _resaddr, _ph, _em, _iris, _fnprints, _face) {
     return new Promise((resolve, reject) => {
-      this.aadhaarContract.addRecords(_addr, _nm, _dob, _gn, _resaddr, _ph, _em, _iris, _fnprints, _face, (err, res) => {
+      this.aadhaarContract.addRecords(_addr, _nm, _dob, _gn, _resaddr, _ph, _em, _iris, _fnprints, _face, {from: this.web3.eth.accounts[0]}, (err, res) => {
         if(err) 
           reject(err);
         else {
@@ -99,7 +93,7 @@ export class ContractsService {
 
   public async accessOwnRecords() {
     return new Promise((resolve, reject) => {
-      this.aadhaarContract.accessOwnRecords.call((err, res) => {
+      this.aadhaarContract.accessOwnRecords.call({from: this.web3.eth.accounts[0]}, (err, res) => {
         if(err) 
           reject(err);
         else {
@@ -111,7 +105,7 @@ export class ContractsService {
   
   public async updatePersonalDetails(_addr, _nm, _dob, _gn) {
     return new Promise((resolve, reject) => {
-      this.aadhaarContract.updatePersonalDetails(_addr, _nm, _dob, _gn, (err, res) => {
+      this.aadhaarContract.updatePersonalDetails(_addr, _nm, _dob, _gn, {from: this.web3.eth.accounts[0]}, (err, res) => {
         if(err) 
           reject(err);
         else {
@@ -123,7 +117,7 @@ export class ContractsService {
 
   public async updateContactDetails(_addr, _resaddr, _em, _ph) {
     return new Promise((resolve, reject) => {
-      this.aadhaarContract.updateContactDetails(_addr, _resaddr, _em, _ph, (err, res) => {
+      this.aadhaarContract.updateContactDetails(_addr, _resaddr, _em, _ph, {from: this.web3.eth.accounts[0]}, (err, res) => {
         if(err) 
           reject(err);
         else {
@@ -135,7 +129,7 @@ export class ContractsService {
 
   public async updateBiometricDetails(_addr, _iris, _fnprints, _face) {
     return new Promise((resolve, reject) => {
-      this.aadhaarContract.updateBiometricDetails(_addr, _iris, _fnprints, _face, (err, res) => {
+      this.aadhaarContract.updateBiometricDetails(_addr, _iris, _fnprints, _face, {from: this.web3.eth.accounts[0]}, (err, res) => {
         if(err) 
           reject(err);
         else {
@@ -147,7 +141,7 @@ export class ContractsService {
 
   public async grantAccess(_rcvaddr, _duration) {
     return new Promise((resolve, reject) => {
-      this.aadhaarContract.grantAccess(_rcvaddr, _duration, (err, res) => {
+      this.aadhaarContract.grantAccess(_rcvaddr, _duration, {from: this.web3.eth.accounts[0]}, (err, res) => {
         if(err) 
           reject(err);
         else {
@@ -159,7 +153,7 @@ export class ContractsService {
 
   public async revokeAccess(_permid) {
     return new Promise((resolve, reject) => {
-      this.aadhaarContract.revokeAccess(_permid, (err, res) => {
+      this.aadhaarContract.revokeAccess(_permid, {from: this.web3.eth.accounts[0]}, (err, res) => {
         if(err) 
           reject(err);
         else {
@@ -171,7 +165,7 @@ export class ContractsService {
 
   public async accessOthersRecords(_permid) {
     return new Promise((resolve, reject) => {
-      this.aadhaarContract.accessOthersRecords.call(_permid, (err, res) => {
+      this.aadhaarContract.accessOthersRecords.call(_permid, {from: this.web3.eth.accounts[0]}, (err, res) => {
         if(err) 
           reject(err);
         else {

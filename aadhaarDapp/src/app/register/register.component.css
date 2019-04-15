@@ -1,3 +1,4 @@
-.ui.form .field input.ng-invalid.ng-touched {
+
+.ui.form .field input.ng-invalid.ng-touched, .ui.form .field select.ng-invalid.ng-touched  {
     border: 1px solid red;
 }

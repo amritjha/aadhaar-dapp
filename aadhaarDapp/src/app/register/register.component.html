@@ -74,7 +74,7 @@
     <div class="eight wide field">
       <div class="field">
         <label>Contact Number</label>
-        <input type="text" name="phone" placeholder="Contact Number"  ngModel required #phone="ngModel">
+        <input type="number" name="phone" placeholder="Contact Number"  ngModel required #phone="ngModel">
         <span class="flash-message" *ngIf="!phone.valid && phone.touched">Please enter a valid contact number.</span>
       </div>
     </div>

@@ -1,0 +1,35 @@
+<div>{{ ret_val }}</div><br>
+
+<form class="ui form"  (ngSubmit)="updateContactDetails()" #updateContactForm="ngForm">
+
+  <div class="field">
+    <label>Node Address</label>
+    <input type="text" name="nodeaddr" placeholder="Node Address" ngModel required #nodeaddr="ngModel">
+    <span class="flash-message" *ngIf="!nodeaddr.valid && nodeaddr.touched">Please enter a valid node address.</span>
+  </div>
+
+  <div class="field">
+    <label>PIN / Zipcode</label>
+    <input type="text" name="place" placeholder="PIN / Zipcode"  ngModel required #pin="ngModel">
+    <span class="flash-message" *ngIf="!pin.valid && pin.touched">This field is required.</span>
+  </div>
+
+  <div class="fields" ngModelGroup="contact" #contact="ngModelGroup">
+    <div class="eight wide field">
+      <div class="field">
+        <label>Email ID</label>
+        <input type="text" name="email" placeholder="Email ID"  ngModel required email #email="ngModel">
+        <span class="flash-message" *ngIf="!email.valid && email.touched">Please enter a valid email address.</span>
+      </div>
+    </div>
+    <div class="eight wide field">
+      <div class="field">
+        <label>Contact Number</label>
+        <input type="number" name="phone" placeholder="Contact Number"  ngModel required #phone="ngModel">
+        <span class="flash-message" *ngIf="!phone.valid && phone.touched">Please enter a valid contact number.</span>
+      </div>
+    </div>
+  </div>
+  <br>
+  <button class="ui button" type="submit" [disabled]="!updateContactForm.valid">Submit</button>
+</form>
