@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import {Router} from "@angular/router";
 
 import * as Web3 from 'web3';
 
@@ -15,44 +16,15 @@ export class ContractsService {
   public web3: any;
 
   public aadhaarContract: any;
-  public CONTRACT_ADDRESS: string = "0xae05b30dce246717c01b9f0e0bd8fea51e44ff77";
-  
-  public ret_val: any;
+  public CONTRACT_ADDRESS: string = "0xe72359f63e1be4347913dce17f7f08f3858cdd84";
 
-  constructor() { this.onLoad(); }
+  constructor(public router: Router) { this.onLoad(); }
 
   public onLoad() {
 
-    if (typeof window.web3 !== 'undefined') {
-      this.web3 = new Web3(window.web3.currentProvider);
-
-      if (this.web3.version.network !== '4') {
-        alert('Please connect to the Rinkeby network');
-      }
-    
-    } else {
-      alert('Please use a dapp browser like mist or MetaMask plugin for chrome');
-    }
-
+    this.web3 = new Web3(window.web3.currentProvider);
     this.aadhaarContract = this.web3.eth.contract(CONTRACT_ABI).at(this.CONTRACT_ADDRESS);
 
-    this.web3.eth.getAccounts((err, res) => {
-
-      if(err) {
-        alert('There was an error fetching your accounts.');
-        return;
-      }
-      else {
-          if (res.length === 0) {
-            alert('Couldn\'t get any accounts!');
-            return;
-          }
-        this.account = res[0];
-        this.web3.eth.defaultAccount = this.account;
-      }
-
-    });
-    
   }
 
   public async designateNode(_addr) {

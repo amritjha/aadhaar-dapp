@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import {ContractsService} from '../services/contracts.service';
+import { NgFlashMessageService } from 'ng-flash-messages';
 
 @Component({
   selector: 'app-register',
@@ -14,9 +15,9 @@ export class RegisterComponent implements OnInit {
 
   @ViewChild('addRecordsForm') addRecordsForm: NgForm;
 
-  ret_val:any = "";
+  citizenRegisteredEvent = this.cs.aadhaarContract.citizenRegistered();
 
-  constructor(public cs : ContractsService) { }
+  constructor(public cs : ContractsService, public ngFlashMessageService: NgFlashMessageService) { }
 
   ngOnInit() { }
 
@@ -40,7 +41,24 @@ export class RegisterComponent implements OnInit {
     let finger:string = this.addRecordsForm.value.biometrics.fingerprint;
     let face:string = this.addRecordsForm.value.biometrics.face;
 
-    this.ret_val = await this.cs.addRecords(nodeaddr, name, dob, gender, pin, phone, email, iris, finger, face);
+    let tx_hash = await this.cs.addRecords(nodeaddr, name, dob, gender, pin, phone, email, iris, finger, face);
+
+    this.citizenRegisteredEvent.watch((err, res) => {
+      if(err) 
+        console.log(err);
+      else {
+        let name = res.args.name;
+        let aadhaar_no = res.args.aadhaar_no;
+        let notification = "<strong>Successfully registered!!</strong> Registered Name: <strong>" + name + "</strong> - Aadhaar Number alloted: <strong>" + aadhaar_no + "</strong>";
+        this.ngFlashMessageService.showFlashMessage({
+          messages: [notification], 
+          dismissible: true, 
+          timeout: 4000,
+          type: 'success'
+        });
+      }
+    });
+
   }
 
 }

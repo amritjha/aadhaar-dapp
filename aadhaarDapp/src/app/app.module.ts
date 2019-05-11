@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
+import { NgFlashMessagesModule } from 'ng-flash-messages';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
@@ -15,23 +17,28 @@ import { AdminComponent } from './admin/admin.component';
 import { PersonalComponent } from './update/personal/personal.component';
 import { ContactComponent } from './update/contact/contact.component';
 import { BiometricsComponent } from './update/biometrics/biometrics.component';
+import { ErrorComponent } from './error/error.component';
+
+import { ContractsService } from './services/contracts.service';
+import { PrerequisiteGuardService } from './services/prerequisite.guard.service';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  { path: 'access-records', component: AccessComponent },
-  { path: 'manage-permissions', component: PermissionsComponent },
-  { path: 'register-applicant', component: RegisterComponent },
+  { path: 'home', component: HomeComponent, canActivate: [PrerequisiteGuardService] },
+  { path: 'access-records', component: AccessComponent, canActivate: [PrerequisiteGuardService] },
+  { path: 'manage-permissions', component: PermissionsComponent, canActivate: [PrerequisiteGuardService] },
+  { path: 'register-applicant', component: RegisterComponent, canActivate: [PrerequisiteGuardService]  },
   { path: 'update-records', component: UpdateComponent,
     children: [
-      { path: '', redirectTo: 'personal',  pathMatch: 'full' }, 
-      { path: 'personal', component: PersonalComponent }, 
-      { path: 'contact', component: ContactComponent }, 
-      { path: 'biometrics', component: BiometricsComponent }
+      { path: '', redirectTo: 'personal',  pathMatch: 'full', canActivate: [PrerequisiteGuardService] }, 
+      { path: 'personal', component: PersonalComponent, canActivate: [PrerequisiteGuardService] }, 
+      { path: 'contact', component: ContactComponent, canActivate: [PrerequisiteGuardService] }, 
+      { path: 'biometrics', component: BiometricsComponent, canActivate: [PrerequisiteGuardService] }
     ]
   },
-  { path: 'regulate-nodes', component: AdminComponent }
-  //{ path: '**', component: PageNotFoundComponent }
+  { path: 'regulate-nodes', component: AdminComponent, canActivate: [PrerequisiteGuardService] },
+  { path: 'error', component: ErrorComponent },
+  { path: '**', component: ErrorComponent }
 ];
 
 @NgModule({
@@ -46,15 +53,17 @@ const appRoutes: Routes = [
     AdminComponent,
     PersonalComponent,
     ContactComponent,
-    BiometricsComponent
+    BiometricsComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot(appRoutes),
-    FormsModule
+    FormsModule,
+    NgFlashMessagesModule.forRoot()
   ],
-  providers: [],
+  providers: [ ContractsService, PrerequisiteGuardService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

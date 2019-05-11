@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import {ContractsService} from '../../services/contracts.service';
+import { NgFlashMessageService } from 'ng-flash-messages';
 
 @Component({
   selector: 'app-biometrics',
@@ -10,9 +11,10 @@ import {ContractsService} from '../../services/contracts.service';
 export class BiometricsComponent implements OnInit {
 
   @ViewChild('updateBiometricsForm') updateBiometricsForm: NgForm;
-  ret_val: any;
 
-  constructor(public cs : ContractsService) { }
+  particularsUpdatedEvent = this.cs.aadhaarContract.particularsUpdated();
+
+  constructor(public cs : ContractsService, public ngFlashMessageService: NgFlashMessageService) { }
 
   ngOnInit() { }
 
@@ -22,7 +24,22 @@ export class BiometricsComponent implements OnInit {
     let finger:string = this.updateBiometricsForm.value.fingerprint;
     let face:string = this.updateBiometricsForm.value.face;
     
-    this.ret_val = await this.cs.updateBiometricDetails(nodeaddr, iris, finger, face);
+    let tx_hash = await this.cs.updateBiometricDetails(nodeaddr, iris, finger, face);
+
+    this.particularsUpdatedEvent.watch((err, res) => {
+      if(err) 
+        console.log(err);
+      else {
+        let notification = "<strong>Successfully updated!!</strong> Node address: <strong>" + res.args.node_addr + "</strong>";
+        this.ngFlashMessageService.showFlashMessage({
+          messages: [notification], 
+          dismissible: true, 
+          timeout: 4000,
+          type: 'success'
+        });
+      }
+    });
+
   }
 
 

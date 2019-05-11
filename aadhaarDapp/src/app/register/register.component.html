@@ -1,4 +1,4 @@
-<div>{{ ret_val }}</div><br>
+<ng-flash-message></ng-flash-message>
 <form class="ui form"  (ngSubmit)="addRecords()" #addRecordsForm="ngForm">
 
   <div class="field">
@@ -82,20 +82,20 @@
 
   <div class="biometrics" ngModelGroup="biometrics" #biometrics="ngModelGroup">
     <div class="field">
-      <label>Face ID</label>
-      <input type="text" name="face" placeholder="Face ID"  ngModel required  #face="ngModel">
+      <label>Face Reference</label>
+      <input type="text" name="face" placeholder="Face Reference"  ngModel required  #face="ngModel">
       <span class="flash-message" *ngIf="!face.valid && face.touched">Please enter a valid reference.</span>
     </div>
 
     <div class="field">
-      <label>Fingerprint ID</label>
-      <input type="text" name="fingerprint" placeholder="Fingerprint ID"  ngModel required  #fingerprint="ngModel">
+      <label>Fingerprint Reference</label>
+      <input type="text" name="fingerprint" placeholder="Fingerprint Reference"  ngModel required  #fingerprint="ngModel">
       <span class="flash-message" *ngIf="!fingerprint.valid && fingerprint.touched">Please enter a valid reference.</span>
     </div>
 
     <div class="field">
-      <label>Iris ID</label>
-      <input type="text" name="iris" placeholder="Iris ID"  ngModel required  #iris="ngModel">
+      <label>Iris Reference</label>
+      <input type="text" name="iris" placeholder="Iris Reference"  ngModel required  #iris="ngModel">
       <span class="flash-message" *ngIf="!iris.valid && iris.touched">Please enter a valid reference.</span>
     </div>
   </div>
